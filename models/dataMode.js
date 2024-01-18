@@ -1,12 +1,15 @@
 const { sq } = require('../config/dbConfig')
 const { DataTypes } = require("sequelize");
 const itemModel = require('./itemModel')
+const headerModel = require('./headerModel')
 
 const Data = sq.define('data', {
     vrNo: {
-        type: DataTypes.NUMBER,
-        allowNull: false,
-        primaryKey: true
+        type:DataTypes.INTEGER,
+        references:{
+            model:headerModel,
+            key:'vrNo'
+        }
     },
     srNo: {
         type: DataTypes.NUMBER,
