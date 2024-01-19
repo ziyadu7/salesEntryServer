@@ -37,6 +37,9 @@ const Data = sq.define('datas', {
     },
 })
 
+Data.belongsTo(headerModel, { foreignKey: 'vrno', as: 'header' });
+Data.belongsTo(itemModel, { foreignKey: 'item', as: 'itemDetails' });
+
 Data.sync({alter:true}).then(() => {
     console.log("Data Model synced");
 });
