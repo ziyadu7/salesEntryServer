@@ -31,7 +31,18 @@ const addItem = async (req,res)=>{
     }
 }
 
+const getItems = async (req,res)=>{
+    try {
+        const items = await itemModel.findAll()
+        res.status(200).json({items})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({errMsg:"Server error"})
+    }
+}
+
 module.exports = {
     getDetails,
-    addItem
+    addItem,
+    getItems
 }
