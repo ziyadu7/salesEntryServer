@@ -44,6 +44,19 @@ const addItem = async (req, res) => {
     }
 }
 
+const addHeader = async (req,res)=>{
+    try {
+        const {status,accName} = req.body
+        const date = new Date()
+        const header = await headerModel.create({status,acname:accName,vrdate:date,acamount:0})
+        console.log(await header.toJSON());
+        res.status(200).json({header})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ errMsg: "Server error" })
+    }
+}
+
 const getItems = async (req, res) => {
     try {
         const items = await itemModel.findAll()
@@ -57,5 +70,6 @@ const getItems = async (req, res) => {
 module.exports = {
     getDetails,
     addItem,
-    getItems
+    getItems,
+    addHeader
 }
