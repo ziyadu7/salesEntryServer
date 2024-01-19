@@ -6,7 +6,8 @@ const getDetails = async (req, res) => {
     try {
         const { vrNo } = req.params
         const vrno = parseInt(vrNo)
-        const details = await detailModel.findOne({
+        let details = {}
+        details = await detailModel.findOne({
             where: { vrno: vrno },
             include: [
                 {
@@ -19,6 +20,12 @@ const getDetails = async (req, res) => {
                 }
             ]
         })
+
+        if(!details){
+            details = {}
+            details.header = await headerModel.findOne({where:{vrno:vrno}})
+        }
+
         res.status(200).json({ details })
     } catch (error) {
         console.log(error);
