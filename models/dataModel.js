@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 const itemModel = require('./itemModel')
 const headerModel = require('./headerModel')
 
-const Data = sq.define('data', {
+const Data = sq.define('datas', {
     vrNo: {
         type:DataTypes.INTEGER,
         references:{
@@ -12,11 +12,11 @@ const Data = sq.define('data', {
         }
     },
     srNo: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
     },
-    itemCode:{
+    item:{
         type:DataTypes.INTEGER,
         references:{
             model:itemModel,
@@ -24,7 +24,7 @@ const Data = sq.define('data', {
         }
     },
     rate:{
-        type:DataTypes.NUMBER,
+        type:DataTypes.INTEGER,
         allowNull:false
     },
     description:{
@@ -32,7 +32,7 @@ const Data = sq.define('data', {
         allowNull:false
     },
     qty:{
-        type:DataTypes.NUMBER,
+        type:DataTypes.INTEGER,
         allowNull:false
     },
 })

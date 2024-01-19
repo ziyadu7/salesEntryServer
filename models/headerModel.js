@@ -1,9 +1,9 @@
 const { sq } = require('../config/dbConfig')
 const { DataTypes } = require("sequelize");
 
-const Header = sq.define('header', {
+const Header = sq.define('headers', {
     vrNo: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
     },
@@ -16,7 +16,7 @@ const Header = sq.define('header', {
         allowNull:false
     },
     acAmount:{
-        type:DataTypes.NUMBER,
+        type:DataTypes.INTEGER,
         allowNull:false
     },
     status:{

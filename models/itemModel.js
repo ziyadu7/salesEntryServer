@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 
 const Items = sq.define('items', {
     itemCode: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
     },
@@ -14,7 +14,7 @@ const Items = sq.define('items', {
 })
 
 Items.sync({alter:true}).then(() => {
-    console.log("User Model synced");
+    console.log("Items Model synced");
 });
 
 module.exports = Items
