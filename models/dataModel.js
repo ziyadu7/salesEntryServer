@@ -4,23 +4,23 @@ const itemModel = require('./itemModel')
 const headerModel = require('./headerModel')
 
 const Data = sq.define('datas', {
-    vrNo: {
+    vrno: {
         type:DataTypes.INTEGER,
         references:{
             model:headerModel,
-            key:'vrNo'
+            key:'vrno'
         }
     },
-    srNo: {
+    srno: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement:true
     },
     item:{
         type:DataTypes.INTEGER,
         references:{
             model:itemModel,
-            key:'itemCode'
+            key:'itemcode'
         }
     },
     rate:{

@@ -2,12 +2,12 @@ const { sq } = require('../config/dbConfig')
 const { DataTypes } = require("sequelize");
 
 const Items = sq.define('items', {
-    itemCode: {
+    itemcode: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        autoIncrement:true,
         primaryKey: true
     },
-    itemName: {
+    itemname: {
         type: DataTypes.STRING,
         allowNull: false
     }

@@ -2,20 +2,20 @@ const { sq } = require('../config/dbConfig')
 const { DataTypes } = require("sequelize");
 
 const Header = sq.define('headers', {
-    vrNo: {
+    vrno: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement:true
     },
-    vrDate: {
+    vrdate: {
         type: DataTypes.DATE,
         allowNull: false
     },
-    acName:{
+    acname:{
         type:DataTypes.STRING,
         allowNull:false
     },
-    acAmount:{
+    acamount:{
         type:DataTypes.INTEGER,
         allowNull:false
     },
