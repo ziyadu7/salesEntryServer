@@ -35,14 +35,14 @@ const getDetails = async (req, res) => {
 
 const addItem = async (req, res) => {
     try {
-        const { item } = req.body
+        const { item,price } = req.body
 
         const isExist = await itemModel.findOne({ where: { itemname: item } })
 
         if (isExist) {
             res.status(409).json({ errMsg: "Item already exist" })
         } else {
-            await itemModel.create({ itemname: item })
+            await itemModel.create({ itemname: item,price:price })
             res.status(200).json({ message: "Item add successfully" })
         }
     } catch (error) {
