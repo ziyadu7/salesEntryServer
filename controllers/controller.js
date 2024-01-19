@@ -47,10 +47,16 @@ const addItem = async (req, res) => {
 const addHeader = async (req,res)=>{
     try {
         const {status,accName} = req.body
+
+        // const isExist = await headerModel.findOne({where:{acname:accName}})
+
+        // if(isExist){
+
+        // }
+
         const date = new Date()
         const header = await headerModel.create({status,acname:accName,vrdate:date,acamount:0})
-        console.log(await header.toJSON());
-        res.status(200).json({header})
+        res.status(200).json({header,message:"Header add successfully"})
     } catch (error) {
         console.log(error);
         res.status(500).json({ errMsg: "Server error" })
