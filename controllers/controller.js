@@ -21,9 +21,8 @@ const getDetails = async (req, res) => {
                 }
             ]
         })
-
-        if(details.length==0){
-            header = await headerModel.findOne({where:{vrno:vrno}})
+        if (details.length == 0) {
+            header = await headerModel.findOne({ where: { vrno: vrno } })
         }
 
         res.status(200).json({ details, header })
@@ -35,14 +34,14 @@ const getDetails = async (req, res) => {
 
 const addItem = async (req, res) => {
     try {
-        const { item,price } = req.body
+        const { item, price } = req.body
 
         const isExist = await itemModel.findOne({ where: { itemname: item } })
 
         if (isExist) {
             res.status(409).json({ errMsg: "Item already exist" })
         } else {
-            await itemModel.create({ itemname: item,price:price })
+            await itemModel.create({ itemname: item, price: price })
             res.status(200).json({ message: "Item add successfully" })
         }
     } catch (error) {
@@ -51,9 +50,9 @@ const addItem = async (req, res) => {
     }
 }
 
-const addHeader = async (req,res)=>{
+const addHeader = async (req, res) => {
     try {
-        const {status,accName} = req.body
+        const { status, accName } = req.body
 
         // const isExist = await headerModel.findOne({where:{acname:accName}})
 
@@ -62,25 +61,42 @@ const addHeader = async (req,res)=>{
         // }
 
         const date = new Date()
-        const header = await headerModel.create({status,acname:accName,vrdate:date,acamount:0})
-        res.status(200).json({header,message:"Header add successfully"})
+        const header = await headerModel.create({ status, acname: accName, vrdate: date, acamount: 0 })
+        res.status(200).json({ header, message: "Header add successfully" })
     } catch (error) {
         console.log(error);
         res.status(500).json({ errMsg: "Server error" })
     }
 }
 
-const addDetails = async(req,res)=>{
+const addDetails = async (req, res) => {
     try {
-        const {qty, item, vrno} = req.body
+        const { qty, item, vrno } = req.body
 
-        const isExist = await detailModel.findOne({where:{item:item.itemcode,vrno:vrno}})
+        const isExist = await detailModel.findOne({ where: { item: item.itemcode, vrno: vrno } })
 
-        if(isExist){
+        if (isExist) {
 
-        }else{
+        } else {
             const details = await detailModel.create()
         }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ errMsg: "Server error" })
+    }
+}
+
+const saveDate = async (req, res) => {
+    try {
+        const { header, details, status, totalPrice} = req.body
+        await headerModel.update({ status, acamount: totalPrice }, { where: { vrno: header?.vrno } })
+        
+        for(const detail of details){
+            await detailModel.create({vrno:header?.vrno,item:detail?.itemDetails?.itemcode,rate:detail?.rate,qty:detail?.qty})
+        }
+
+        res.status(200).json({message:"Report add successfully"})
+
     } catch (error) {
         console.log(error);
         res.status(500).json({ errMsg: "Server error" })
@@ -102,5 +118,6 @@ module.exports = {
     addItem,
     getItems,
     addHeader,
-    addDetails
+    addDetails,
+    saveDate
 }
