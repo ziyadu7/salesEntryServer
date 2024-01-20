@@ -6,5 +6,6 @@ router.get('/fetchDetails/:vrNo',controller.getDetails)
 router.get('/fetchItems',controller.getItems)
 router.post('/addItem',controller.addItem)
 router.post('/addHeader',controller.addHeader)
+router.post('/addDetails',controller.addDetails)
 
 module.exports = router

@@ -6,8 +6,9 @@ const getDetails = async (req, res) => {
     try {
         const { vrNo } = req.params
         const vrno = parseInt(vrNo)
-        let details = {}
-        details = await detailModel.findOne({
+        let details = []
+        let header = {}
+        details = await detailModel.findAll({
             where: { vrno: vrno },
             include: [
                 {
@@ -21,12 +22,11 @@ const getDetails = async (req, res) => {
             ]
         })
 
-        if(!details){
-            details = {}
-            details.header = await headerModel.findOne({where:{vrno:vrno}})
+        if(details.length==0){
+            header = await headerModel.findOne({where:{vrno:vrno}})
         }
 
-        res.status(200).json({ details })
+        res.status(200).json({ details, header })
     } catch (error) {
         console.log(error);
         res.status(500).json({ errMsg: "Server error" })
@@ -70,6 +70,23 @@ const addHeader = async (req,res)=>{
     }
 }
 
+const addDetails = async(req,res)=>{
+    try {
+        const {qty, item, vrno} = req.body
+
+        const isExist = await detailModel.findOne({where:{item:item.itemcode,vrno:vrno}})
+
+        if(isExist){
+
+        }else{
+            const details = await detailModel.create()
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ errMsg: "Server error" })
+    }
+}
+
 const getItems = async (req, res) => {
     try {
         const items = await itemModel.findAll()
@@ -84,5 +101,6 @@ module.exports = {
     getDetails,
     addItem,
     getItems,
-    addHeader
+    addHeader,
+    addDetails
 }

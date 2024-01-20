@@ -27,10 +27,6 @@ const Data = sq.define('datas', {
         type:DataTypes.INTEGER,
         allowNull:false
     },
-    description:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
     qty:{
         type:DataTypes.INTEGER,
         allowNull:false
