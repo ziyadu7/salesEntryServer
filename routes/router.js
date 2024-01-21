@@ -7,6 +7,7 @@ router.get('/fetchItems',controller.getItems)
 router.post('/addItem',controller.addItem)
 router.post('/addHeader',controller.addHeader)
 router.post('/addDetails',controller.addDetails)
-router.post('/saveData',controller.saveDate)
+router.post('/saveData',controller.saveData)
+router.delete('/delete/:vrno',controller.deleteHeader)
 
 module.exports = router

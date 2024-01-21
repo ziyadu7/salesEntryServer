@@ -86,7 +86,7 @@ const addDetails = async (req, res) => {
     }
 }
 
-const saveDate = async (req, res) => {
+const saveData = async (req, res) => {
     try {
         const { header, details, status, totalPrice} = req.body
         await headerModel.update({ status, acamount: totalPrice }, { where: { vrno: header?.vrno } })
@@ -96,6 +96,21 @@ const saveDate = async (req, res) => {
         }
 
         res.status(200).json({message:"Report add successfully"})
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ errMsg: "Server error" })
+    }
+}
+
+const deleteHeader = async (req,res)=>{
+    try {
+        const {vrno} = req.params
+
+        await detailModel.destroy({where:{vrno:vrno}})
+        await headerModel.destroy({where:{vrno:vrno}})
+
+        res.status(200).json({message:"Report delted successfully"})
 
     } catch (error) {
         console.log(error);
@@ -119,5 +134,6 @@ module.exports = {
     getItems,
     addHeader,
     addDetails,
-    saveDate
+    saveData,
+    deleteHeader
 }
